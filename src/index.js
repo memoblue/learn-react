@@ -1,11 +1,11 @@
 import React from 'react';
 import { render } from 'react-dom';
+// react router
 import { BrowserRouter, Match, Miss } from 'react-router';
 
 import App from './components/App';
-import NotFound from './components/NotFound';
 import StorePicker from './components/StorePicker';
-
+import NotFound from './components/NotFound';
 
 import './css/style.css';
 
@@ -14,11 +14,11 @@ const Root = () => {
     <BrowserRouter>
       <div>
         <Match exactly pattern="/" component={StorePicker} />
-        <Match pattern="/store/:storId" component={App} />
+        <Match pattern="/store/:storeId" component={App} />
         <Miss component={NotFound} />
       </div>
     </BrowserRouter>
-  );
+  )
 }
 
 render(<Root />, document.querySelector('#main'));

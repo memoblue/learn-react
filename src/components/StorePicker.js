@@ -7,7 +7,7 @@ class StorePicker extends React.Component {
     // get text from input field
     const storeId = this.storeInput.value;
     // transition to store URL
-    this.context.router.transitionTo(`/store/${storeId}`);
+    this.context.router.transitionTo(`/store/${storeId}`); //  !! will change to correct URL but WON'T LOAD COMPONENT without first forward slash
   }
 
   render() {
