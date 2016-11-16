@@ -21,15 +21,27 @@ class App extends React.Component {
   }
 
   componentWillMount() {
-    this.ref = base.syncState(`${this.props.params.storeId}/veggies`,
+    this.ref = base.syncState(`${this.props.params.storeId}/veggies`, // storeId available via router
       {
         context: this,
         state: 'veggies'
       });
+
+      // check for orders in localStorage
+      const localStorageRef =  localStorage.getItem(`order-${this.props.params.storeId}`);
+      if (localStorageRef) {
+        this.setState({
+          order: JSON.parse(localStorageRef)
+        })
+      }
   }
 
   componentWillUnmount() {
     base.removeBinding(this.ref);
+  }
+
+  componentWillUpdate(nextProps, nextState) {
+    localStorage.setItem(`order-${this.props.params.storeId}`, JSON.stringify(nextState.order));
   }
 
   loadSamples() {
@@ -71,7 +83,11 @@ class App extends React.Component {
             }
           </ul>
         </div>
-        <Order order={this.state.order} veggies={this.state.veggies} />
+        <Order
+          order={this.state.order}
+          veggies={this.state.veggies}
+          params={this.props.params}
+          />
         <Inventory loadSamples={this.loadSamples} addVeggie={this.addVeggie} />
       </div>
     );
