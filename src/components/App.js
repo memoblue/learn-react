@@ -1,5 +1,6 @@
 import React from 'react';
 
+import base from '../base';
 import sampleVeggies from '../sample-veggies'
 
 import Header from './Header';
@@ -17,6 +18,18 @@ class App extends React.Component {
       veggies: {},
       order: {}
     };
+  }
+
+  componentWillMount() {
+    this.ref = base.syncState(`${this.props.params.storeId}/veggies`,
+      {
+        context: this,
+        state: 'veggies'
+      });
+  }
+
+  componentWillUnmount() {
+    base.removeBinding(this.ref);
   }
 
   loadSamples() {
