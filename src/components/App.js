@@ -14,6 +14,7 @@ class App extends React.Component {
     this.loadSamples = this.loadSamples.bind(this);
     this.addVeggie = this.addVeggie.bind(this);
     this.addToOrder = this.addToOrder.bind(this);
+    this.updateVeggie = this.updateVeggie.bind(this);
     this.state = {
       veggies: {},
       order: {}
@@ -69,6 +70,12 @@ class App extends React.Component {
     this.setState({ veggies }); // = veggies: veggies
   }
 
+  updateVeggie(k, updatedVeggie) {
+    const veggies = {...this.state.veggies}; // first copy state
+    veggies[k] = updatedVeggie; // then override the key (specific veggie) we need
+    this.setState({ veggies });
+  }
+
   render() {
     const veggiesList = this.state.veggies;
     return (
@@ -87,8 +94,13 @@ class App extends React.Component {
           order={this.state.order}
           veggies={this.state.veggies}
           params={this.props.params}
-          />
-        <Inventory loadSamples={this.loadSamples} addVeggie={this.addVeggie} />
+        />
+        <Inventory
+          veggies={this.state.veggies}
+          loadSamples={this.loadSamples}
+          addVeggie={this.addVeggie}
+          updateVeggie={this.updateVeggie}
+        />
       </div>
     );
   }
