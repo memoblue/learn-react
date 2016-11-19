@@ -11,14 +11,15 @@ class Order extends React.Component {
   renderOrder(k) {
     const veggie = this.props.veggies[k];
     const count  = this.props.order[k];
+    const removeButton = <button onClick={() => this.props.removeFromOrder(k)}>&times;</button>;
 
     if(!veggie || veggie.status === 'unavailable') {
-      return <li key={k}>Sorry, {veggie ? veggie.name : 'veggie'} is no longer available</li>;
+      return <li key={k}>Sorry, {veggie ? veggie.name : 'veggie'} is no longer available {removeButton}</li>;
     }
 
     return (
       <li key={k}>
-        <span>{count}lbs {veggie.name}</span>
+        <span>{count}lbs {veggie.name} {removeButton}</span>
         <span className="price">{formatPrice(count * veggie.price)}</span>
       </li>
     );

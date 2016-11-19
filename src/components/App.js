@@ -12,9 +12,11 @@ class App extends React.Component {
   constructor() {
     super();
     this.loadSamples = this.loadSamples.bind(this);
-    this.addVeggie = this.addVeggie.bind(this);
     this.addToOrder = this.addToOrder.bind(this);
+    this.removeFromOrder = this.removeFromOrder.bind(this);
+    this.addVeggie = this.addVeggie.bind(this);
     this.updateVeggie = this.updateVeggie.bind(this);
+    this.removeVeggie = this.removeVeggie.bind(this);
     this.state = {
       veggies: {},
       order: {}
@@ -60,6 +62,12 @@ class App extends React.Component {
     this.setState({ order });
   }
 
+  removeFromOrder(k) {
+    const order = {...this.state.order};
+    delete order[k]; // we don't use firebase for orders so we don't have to use the `obj[k] = null` syntax
+    this.setState({ order });
+  }
+
   addVeggie(veggie) {
     // copy state
     const veggies = {...this.state.veggies};
@@ -73,6 +81,12 @@ class App extends React.Component {
   updateVeggie(k, updatedVeggie) {
     const veggies = {...this.state.veggies}; // first copy state
     veggies[k] = updatedVeggie; // then override the key (specific veggie) we need
+    this.setState({ veggies });
+  }
+
+  removeVeggie(k) {
+    const veggies = {...this.state.veggies};
+    veggies[k] = null; // delete veggies[key]; <== can't use because doesn't work with firebase
     this.setState({ veggies });
   }
 
@@ -94,12 +108,14 @@ class App extends React.Component {
           order={this.state.order}
           veggies={this.state.veggies}
           params={this.props.params}
+          removeFromOrder={this.removeFromOrder}
         />
         <Inventory
           veggies={this.state.veggies}
           loadSamples={this.loadSamples}
           addVeggie={this.addVeggie}
           updateVeggie={this.updateVeggie}
+          removeVeggie={this.removeVeggie}
         />
       </div>
     );
