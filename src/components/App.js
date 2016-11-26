@@ -122,4 +122,8 @@ class App extends React.Component {
   }
 }
 
+App.proptypes = {
+  params: React.PropTypes.object.irRequied
+}
+
 export default App;

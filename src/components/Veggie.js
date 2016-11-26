@@ -20,4 +20,10 @@ class Veggie extends React.Component {
   }
 }
 
+Veggie.propTypes = {
+  details: React.PropTypes.object.isRequired,
+  idx: React.PropTypes.string.isRequired,
+  addToOrder: React.PropTypes.func.isRequired
+};
+
 export default Veggie;

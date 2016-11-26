@@ -48,4 +48,12 @@ class Inventory extends React.Component {
   }
 }
 
+Inventory.propTypes = {
+  veggies: React.PropTypes.object.isRequired,
+  removeVeggie: React.PropTypes.func.isRequired,
+  updateVeggie: React.PropTypes.func.isRequired,
+  addVeggie: React.PropTypes.func.isRequired,
+  loadSamples: React.PropTypes.func.isRequired
+};
+
 export default Inventory;

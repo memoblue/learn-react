@@ -31,4 +31,8 @@ class AddVeggieForm extends React.Component {
   }
 }
 
+AddVeggieForm.proptypes = {
+  addVeggie: React.PropTypes.func.isRequired
+}
+
 export default AddVeggieForm;
